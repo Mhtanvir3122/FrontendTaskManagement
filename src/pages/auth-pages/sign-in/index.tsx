@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useRef, useState } from "react";
 import {
   Container,
   Row,
@@ -13,6 +13,10 @@ import {
   GoogleLogo,
  TwitterLogo,
 } from "phosphor-react";
+import { ReportService } from "@/service/service";
+import LoginContext from "./loginContext";
+import { useForm } from "react-hook-form";
+import Input from "@/components/myComponant/input/input";
 
 const SignInPage: React.FC = () => {
   const [formData, setFormData] = useState({
@@ -20,7 +24,14 @@ const SignInPage: React.FC = () => {
     password: "",
     remember: false,
   });
+  const loginCtx = useContext(LoginContext);
+ const {
+    register,
+    handleSubmit,
+    setValue,
+      formState: { errors },
 
+  } = useForm();
   const navigate = useNavigate();
 
   const inputFields = [
@@ -61,11 +72,23 @@ const SignInPage: React.FC = () => {
     }));
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (formData.username && formData.password) {
-      navigate("/dashboard/ecommerce");
-    }
+  const submit = (e:any) => {
+
+  
+     ReportService.logIn({...e})
+        .then((resp) => {
+          
+          ReportService.getUser()
+          .then((resp) => {
+            localStorage.setItem("userInfo", JSON.stringify(resp?.data?.find((e:any) =>e?.username===e?.username)));
+            loginCtx.toggleLogin();
+            navigate("/dashboard/ecommerce");  
+            
+          })        })
+        .catch((err) => {
+console.log("the");
+
+        })
   };
 
   return (
@@ -78,11 +101,11 @@ const SignInPage: React.FC = () => {
               <div className="form-container">
                 <div className="signup-content mt-4">
                   <span>
-                    <img src="/images/logo/1.png" alt="Logo" className="img-fluid" />
+                    {/* <img src="/images/logo/1.png" alt="Logo" className="img-fluid" /> */}
                   </span>
                 </div>
                 <div className="signup-bg-img">
-                  <img src="/images/login/01.png" alt="Background" className="img-fluid" />
+                  <img src="/images/login/07.png" alt="Background" className="img-fluid" />
                 </div>
               </div>
             </Col>
@@ -90,38 +113,54 @@ const SignInPage: React.FC = () => {
 
             <Col lg={5} className="form-content-box">
               <div className="form-container">
-                <Form className="app-form" onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit(submit)} noValidate>
                   <Row>
                     <Col xs={12}>
                       <div className="mb-5 text-center text-lg-start">
                         <h2 className="text-white fw-bold">
-                          Welcome To <span className="text-dark">ki-admin!</span>
+                          Welcome <span className="text-dark"></span>
                         </h2>
                         <p>Sign in with your credentials</p>
                       </div>
                     </Col>
 
 
-                    {inputFields.map((field) => (
-                      <Col xs={12} key={field.id}>
-                        <FloatingLabel controlId={field.id} label={field.label} className="mb-3">
-                          <Form.Control
-                            type={field.type}
-                            placeholder={field.placeholder}
-                            value={(formData as any)[field.id]}
-                            onChange={(e) => handleChange(field.id, e.target.value)}
-                            required
-                          />
-                        </FloatingLabel>
-                        {field.forgotLink && (
-                          <div className="mb-3 text-end">
-                            <Link to={field.forgotLink} className="text-dark-50 f-w-500 text-decoration-underline">
+                      <Col xs={12} >
+                         <Input
+          label="User Name"
+          placeholder="User Name লিখুন"
+          registerProperty={{
+            ...register("username", {
+              required: "User Name লিখুন",
+            }),
+          }}
+          // isPhone
+          isRequired
+          isError={!!errors?.username}
+          errorMessage={errors?.username?.message as string}
+        />
+                        
+                      </Col>
+          <Col xs={12} >
+                         <Input
+          label="Password"
+          placeholder="Password লিখুন"
+          registerProperty={{
+            ...register("password", {
+              required: "Password লিখুন",
+            }),
+          }}
+          // isPhone
+          isRequired
+          isError={!!errors?.password}
+          errorMessage={errors?.password?.message as string}
+        />                      </Col>
+
+          <div className="mb-3 text-end">
+                            <Link to={"/auth-pages/password-reset"} className="text-dark-50 f-w-500 text-decoration-underline">
                               Forgot Password?
                             </Link>
                           </div>
-                        )}
-                      </Col>
-                    ))}
 
 
                     <Col xs={12}>
@@ -137,9 +176,8 @@ const SignInPage: React.FC = () => {
 
 
                     <Col xs={12}>
-                      <Link  to="/dashboard/ecommerce" type="submit"  className="btn btn-primary w-100 mb-3" >
-                        Sign In
-                      </Link>
+                   
+                      <Button type="submit" >Sign In</Button>
                     </Col>
 
 
@@ -176,7 +214,7 @@ const SignInPage: React.FC = () => {
                       </div>
                     </Col>
                   </Row>
-                </Form>
+                </form>
               </div>
             </Col>
           </Row>
