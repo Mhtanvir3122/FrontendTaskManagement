@@ -1,0 +1,90 @@
+/* Hide number field arrow */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+input[type="number"] {
+  -moz-appearance: textfield;
+}
+
+.react-datepicker-popper {
+  z-index: 1021;
+}
+
+.react-datepicker-wrapper {
+  width: 100%;
+}
+
+.react-datepicker__close-icon::after {
+  background-color: inherit !important;
+  color: var(--kt-secondary-active) !important;
+  font-size: 1.5rem !important;
+}
+
+.react-datepicker__input-container .react-datepicker__calendar-icon {
+  color: var(--kt-secondary-active) !important;
+  top: 2px
+}
+
+.phone-field {
+  .phone-prefix {
+    background: #f5f8fa;
+    left: -12px;
+    bottom: -14px;
+    padding-right: 5px;
+    padding-left: 5px;
+    border-right: 1px solid #e4e6ef;
+    border-top-left-radius: 4px;
+    border-bottom-left-radius: 4px; //63
+    transition:all .15s ease-in-out;
+    span {
+      font-size: 12px;
+      color: #5e6278;
+      font-weight: 500;
+    }
+    img {
+      width: 18px;
+    }
+  }
+  input {
+    padding-left: 63px !important;
+  }
+  &:hover {
+    .phone-prefix {
+      background: #ffffff;
+    }
+  }
+}
+
+// otp input
+.otp-input-field {
+  .input-otp {
+    max-width: 50px;
+    width: 100%;
+    margin-right: 5px;
+    height: 35px;
+    color: var(--kt-input-color);
+    background-color: var(--kt-input-bg);
+    border: 1px solid var(--kt-input-border-color);
+    box-shadow: none !important;
+    outline: none;
+    text-align: center;
+    font-size: 18px;
+    &:focus {
+      border: 1px solid var(--kt-input-focus-border-color);
+      outline: none;
+    }
+  }
+}
+
+.form-control-sm {
+  min-height: calc(1.5em + 1.1rem + 5px) !important;
+}
+
+
+/* Rounded border for input */
+.input-rounded {
+  border-radius: 0.425rem !important; // bootstrap style radius
+}
+

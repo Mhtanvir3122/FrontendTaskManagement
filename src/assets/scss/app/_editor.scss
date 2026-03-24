@@ -1,0 +1,74 @@
+// >>-- 117 Editor css start --<<
+.app-editor-content{
+  min-height: 300px;
+}
+
+.trumbowyg-box {
+  border: 2px dashed rgba(var(--dark), 0.4);
+  border-radius: var(--app-border-radius);
+  overflow: hidden;
+  .trumbowyg-button-pane {
+    border-bottom: 0;
+    background: rgba(var(--dark), 0.1);
+    border-color: black;
+    .trumbowyg-button-group {
+      &:hover {
+        button {
+          background: rgba(var(--dark), 0.1);
+        }
+      }
+    }
+  }
+}
+
+.text-editor-container {
+  border: 2px dashed rgba(var(--secondary),.75);
+  border-radius: var(--app-border-radius);
+  overflow: hidden;
+  .editor-toolbar {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 4px;
+    padding: 8px;
+    background: rgba(var(--light),.1);
+    border-bottom: 2px dashed rgba(var(--secondary),.75);
+    .toolbar-group{
+      display: flex;
+      border-right: 1px solid rgba(var(--secondary),.1);
+      padding-right: 8px;
+      margin-right: 8px;
+      gap: 0.5rem;
+    }
+    button {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(var(--white),1);
+      border: 1px solid rgba(var(--secondary),.2);
+      border-radius: 4px;
+      padding: 6px 8px;
+      cursor: pointer;
+      color: rgba(var(--secondary),1);
+      transition: all 0.2s ease;
+      &.is-active{
+        background: rgba(var(--primary),1);
+        color: rgba(var(--white),1);
+      }
+    }
+  }
+}
+
+
+.editor-content {
+  padding: 16px;
+  background: white;
+  min-height: 300px;
+  outline: none;
+}
+
+//.ProseMirror {
+//  min-height: 300px;
+//}
+
+// >>-- 117 Editor css end --<<

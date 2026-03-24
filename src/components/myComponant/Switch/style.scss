@@ -1,0 +1,12 @@
+.form-check-custom.form-check-solid .form-check-input {
+	background-color: var(--kt-gray-400);;
+}
+
+.form-check-custom.form-check-solid .form-check-input:active,
+.form-check-custom.form-check-solid .form-check-input:focus {
+	background-color: var(--kt-gray-400);;
+}
+
+.form-check-custom.form-check-solid .form-check-input:checked {
+	background-color: var(--kt-form-check-input-checked-bg-color-solid);
+}

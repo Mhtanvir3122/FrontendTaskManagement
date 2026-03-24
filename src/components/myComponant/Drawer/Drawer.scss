@@ -1,0 +1,101 @@
+.drawer-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.4);
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0s ease-in;
+  z-index: 9999 !important; /* Increased */
+}
+
+.drawer-overlay.open {
+  opacity: 1;
+  visibility: visible;
+}
+
+.drawer {
+  position: fixed;
+  top: 0;
+  right: 0;
+  height: 100vh;
+  background: #fff;
+  border-left: 1px solid #ddd;
+  box-shadow: -4px 0 12px rgba(0, 0, 0, 0.1);
+  transform: translateX(100%);
+  transition: transform .5s ease-in;
+  z-index: 10000 !important; /* Increased */
+  display: flex;
+  flex-direction: column;
+
+  &.open {
+    transform: translateX(0);
+  }
+
+  // Default Desktop Width
+  &.sm {
+    width: 520px;
+  }
+
+  &.md {
+    width: 600px;
+  }
+
+  &.xl {
+    width: 1000px;
+  }
+
+  &__close {
+    margin-top: 75px;
+    padding: 0px 0px 10px 10px;
+    text-align: left;
+    cursor: pointer;
+    font-size: 20px;
+    border-bottom: 1px solid #eee;
+  }
+
+  &__content {
+    padding: 6px 6px 6px 10px;
+    overflow-y: auto;
+    flex: 1;
+  }
+}
+
+/* ============================================= */
+/*                Responsive Design              */
+/* ============================================= */
+
+/* Mobile (≤ 576px) — Full width drawer */
+@media (max-width: 576px) {
+  .drawer {
+    width: 100% !important;   // override any size
+    border-left: none;
+    box-shadow: none;
+  }
+
+  .drawer__close {
+    margin-top: 20px;
+    font-size: 22px;
+  }
+}
+
+/* Tablet (≤ 768px) — Medium width drawer */
+@media (max-width: 768px) {
+  .drawer.sm,
+  .drawer.md,
+  .drawer.xl {
+    width: 100% !important;
+  }
+}
+
+/* Small Laptop (≤ 992px) — slightly smaller drawer */
+@media (max-width: 992px) {
+  .drawer.sm {
+    width: 420px;
+  }
+  .drawer.md {
+    width: 500px;
+  }
+  .drawer.xl {
+    width: 700px;
+  }
+}

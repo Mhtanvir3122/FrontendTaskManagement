@@ -1,0 +1,39 @@
+@use "sass:map";
+@use "reboot";
+
+// >>-- 56 Select css start --<<
+
+@mixin select_mixin($name, $color) {
+  .select_#{$name} {
+    .custom-select__control {
+      .custom-select__value-container {
+        .custom-select__multi-value {
+          background-color: rgba(#{$color}, 0.1) !important;
+          color: rgba(#{$color}, 1) !important;
+        }
+      }
+    }
+  }
+}
+
+@each $name, $color in reboot.$colors {
+  @include select_mixin("" + $name, map.get(reboot.$colors, $name));
+}
+.custom-select_menu {
+  background-color: rgba(var(--white), 1) !important;
+}
+
+.app-form{
+  .custom-select__control {
+    .custom-select__value-container {
+      .custom-select__multi-value {
+        border: 1px dashed rgb(var(--secondary), 1);
+      }
+
+      custom-select__meny{
+        background-color: rgba(var(--primary), 1) !important;
+      }
+    }
+  }
+}
+// >>-- 56 Select css end --<<

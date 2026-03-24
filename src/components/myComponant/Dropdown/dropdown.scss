@@ -1,0 +1,10 @@
+.menu-wrapper {
+  display: block;
+  // width: fit-content;
+  .item {
+    cursor: pointer;
+    &:hover {
+      background-color: var(--kt-light-active);
+    }
+  }
+}
