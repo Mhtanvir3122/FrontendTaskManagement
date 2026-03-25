@@ -60,7 +60,7 @@ export const ReportService = {
     forgotPass: async (payload:any): Promise<any> =>
         await axios.post( "http://localhost:8080/AuthService/auth/forgot-password", payload),
     
-    getUser: async (): Promise<any> =>
+    getUser: async (config?: any): Promise<any> =>
         await axios.get( "http://localhost:8080/AuthService/auth/list"),
 
     roleSave: async (payload:any): Promise<any> =>

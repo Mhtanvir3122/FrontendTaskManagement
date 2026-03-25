@@ -1,5 +1,7 @@
 import React, { Suspense } from "react";
 import { BrowserRouter } from "react-router-dom";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 import { ThemeProvider } from "@/contexts/ThemeContext.tsx";
 import "animate.css";
@@ -19,6 +21,7 @@ const App: React.FC = () => {
     <ThemeProvider>
       <Suspense fallback={<Loader />}>
         <BrowserRouter>
+          <ToastContainer />
           <AppRoutes />
         </BrowserRouter>
       </Suspense>
