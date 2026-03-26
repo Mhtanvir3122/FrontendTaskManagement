@@ -1,5 +1,7 @@
 export const MenuList = [
-  {
+ 
+       { name: "Menu", path: "/menu" },
+ {
     type: "dropdown",
     title: "Dashboard",
     iconClass: "home",

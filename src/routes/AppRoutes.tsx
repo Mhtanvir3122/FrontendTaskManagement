@@ -331,6 +331,7 @@ const Department = React.lazy(() => import("@/modules/SmartClassRoutine/departme
 
 const Course = React.lazy(() => import("@/modules/SmartClassRoutine/course"));
 
+const Menu = React.lazy(() => import("@/modules/tms/menu"));
 
 ///////////////////
 
@@ -561,6 +562,8 @@ const routes = [
   //----------------------------------// my //---------------------------//
 
     { path: MY_PAGES_ROUTES.TEST_PAGE, component: <Tanvir /> },
+        { path: MY_PAGES_ROUTES.MENU, component: <Menu /> },
+
 
 
     { path: SMART_CLASS_ROUTINE_ROUTES.CLASS_ROUTINE, component: <Course /> },
@@ -629,15 +632,26 @@ const authRoutes = [
 ];
 
 const AppRoutes: React.FC = () => {
+
+  console.log(routes);
+  
   return (
     <Routes>
-      {routes.map(({ path, component }) => (
-        <Route
-          key={path}
-          path={path}
-          element={<MainLayout>{component}</MainLayout>}
-        />
-      ))}
+  {routes?.map(({ path, component }) => (
+  path ? (
+    <Route
+      key={path}
+      path={path}
+      element={<MainLayout>{component ?? <Demo />}</MainLayout>}
+    />
+  ) : null
+))}
+
+{/* Catch-all fallback */}
+<Route
+  path="*"
+  element={<MainLayout><Demo /></MainLayout>}
+/>
       {authRoutes.map(({ path, component }) => (
         <Route key={path} path={path} element={component} />
       ))}

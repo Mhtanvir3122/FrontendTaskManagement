@@ -41,6 +41,12 @@ export const deleteEmployee = async (id: number) => {
 
 };
 
+export const MenuService = { 
+
+
+    menusGetList: async (config?: any): Promise<any> =>
+        await axios.get( "http://localhost:8080/AuthService/auth/menus"),
+}
 
 export const ReportService = {
     orgWiseAssetStatistics: async (payload:any): Promise<any> =>

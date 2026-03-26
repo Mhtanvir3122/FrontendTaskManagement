@@ -7,6 +7,7 @@ import { AppLogo } from "@/components/layouts/sidebar/AppLogo.tsx";
 import HorizontalNav from "@/components/layouts/sidebar/HorizontalNav.tsx";
 
 import MenuItem from "./MenuItem";
+import { MenuService } from "@/service/service";
 
 export interface SidebarProps {
   sidebarOpen?: boolean;
@@ -35,6 +36,43 @@ const Sidebar: React.FC<SidebarProps> = ({ sidebarOpen, setSidebarOpen }) => {
     return () => clearInterval(interval);
   }, []);
 
+  useEffect(() => {
+      getDataList();
+      // eslint-disable-next-line
+    }, []);
+    const [dynamicMenu, setDynamicMenu] = useState<any>([]);
+
+    const getDataList = () => {
+ 
+      MenuService.menusGetList().then((res) => {
+        setDynamicMenu(res?.data || []);
+      
+      });
+    };
+
+function cleanMenu(menu: any[]): any[] {
+  return menu
+    .map(item => {
+      const cleanedItem: any = {};
+      for (const key in item) {
+        if (item[key] !== null && key !== "children") {
+          cleanedItem[key] = item[key];
+        }
+      }
+      // children থাকলে recursively clean করা
+      if (item.children && item.children.length > 0) {
+        const cleanedChildren = cleanMenu(item.children);
+        if (cleanedChildren.length > 0) {
+          cleanedItem.children = cleanedChildren;
+        }
+      }
+      return cleanedItem;
+    })
+    .filter(item => Object.keys(item).length > 0); // empty objects remove
+}
+
+console.log(cleanMenu(dynamicMenu));
+
   return (
     <nav className={`vertical-sidebar ${sidebarOpen ? "semi-nav" : ""}`}>
       <AppLogo sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
@@ -43,7 +81,9 @@ const Sidebar: React.FC<SidebarProps> = ({ sidebarOpen, setSidebarOpen }) => {
             style={{ marginLeft: isHorizontal ? `${navTranslateX}px` : "0px",
                       transition: isHorizontal ? "margin-left 0.3s ease" : "none", 
             }} ref={navRef}>
-          {MenuList.map((opt, index) => (
+          {/* {MenuList.map((opt, index) => ( */}
+                    {cleanMenu(dynamicMenu).map((opt, index) => (
+
             <Fragment key={index}>
               <MenuItem
                 title={opt.title}
