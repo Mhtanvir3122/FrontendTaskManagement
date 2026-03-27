@@ -11,52 +11,45 @@ import { TableCell } from "@/components/myComponant/TableFor/TableCell";
 import { TableRow } from "@/components/myComponant/TableFor/TableRow";
 import { numEnToBn } from "@/components/myComponant/input/checkValidation";
 
-import DetailsTable from "./DetailsTable";
-
 const columns: ITableHeadColumn[] = [
   { title: "", width: 20 },
-
   { title: "ক্রমিক নং", width: 100 },
+
   { title: "মেনুর নাম", width: 200 },
   { title: "মেনুর ধরন", minWidth: 150 },
   { title: "আইকন", minWidth: 120 },
   { title: "পাথ", minWidth: 120 },
   { title: "প্যারেন্ট", minWidth: 120 },
-  { title: "অ্যাকশন", minWidth: 20, className: "d-flex justify-content-center" },
+  {
+    title: "অ্যাকশন",
+    minWidth: 20,
+    className: "d-flex justify-content-center",
+  },
 ];
-interface CourseTableProps {
+interface DetailsTableProps {
   children?: ReactNode;
-  tableData?: any[];
+  tableData?: any;
   title?: string;
   handleUpdate: (data) => void;
 }
-const CourseTable: FC<CourseTableProps> = ({
+const DetailsTable: FC<DetailsTableProps> = ({
   tableData,
   children,
   handleUpdate,
 }) => {
-  if (!tableData?.length) return null;
+  if (!tableData?.children?.length) return null;
 
   return (
     <Card>
-      <Card.Header>
-        <h5>মেনু তালিকা</h5>
-      </Card.Header>
+      {/* <Card.Header>
+        <h6>Course Table</h6>
+      </Card.Header> */}
+              <h6 className="px-2 p-1"> চাইল্ড মেনু তালিকা</h6>
+
       <Card.Body className="p-0">
         <Table columns={columns}>
-          {tableData?.map((item: any, i: number) => (
-            <TableRow
-              key={item?.id || i}
-              details={
-                item?.children?.length > 0 ? (
-                  <DetailsTable
-                    tableData={item}
-                    handleUpdate={handleUpdate}
-                    children={children}
-                  />
-                ) : null
-              }
-            >
+          {tableData?.children?.map((item: any, i: number) => (
+            <TableRow key={item?.id || i}>
               <TableCell text={numEnToBn(i + 1)} />
 
               <TableCell text={item?.name || "তথ্য নেই "} />
@@ -65,8 +58,7 @@ const CourseTable: FC<CourseTableProps> = ({
               <TableCell text={item?.iconClass || "তথ্য নেই "} />
 
               <TableCell text={item?.path || "তথ্য নেই "} />
-                 <TableCell text={item?.createdOn || "তথ্য নেই "} />
-
+              <TableCell text={tableData?.name || "তথ্য নেই "} />
 
               <TableCell className="p-0 m-0 ">
                 <div className="d-flex justify-content-center align-items-center">
@@ -82,7 +74,13 @@ const CourseTable: FC<CourseTableProps> = ({
                   >
                     <DropdownItem
                       onClick={() => {
-                        handleUpdate(item);
+                        handleUpdate({
+                          ...item,
+                          parentDto: {
+                            id: tableData?.id,
+                            name: tableData?.name,
+                          },
+                        });
                       }}
                     >
                       <Icon size={16} icon="edit" color="info" />
@@ -102,4 +100,4 @@ const CourseTable: FC<CourseTableProps> = ({
   );
 };
 
-export default CourseTable;
+export default DetailsTable;

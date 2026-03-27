@@ -12,6 +12,7 @@ interface ICertificationForm {
   onClose: () => void;
   onSubmit: (data: any) => void;
   updateData?: any;
+  listData?: any;
 }
 
 const CertificationForm = ({
@@ -19,6 +20,7 @@ const CertificationForm = ({
   onClose,
   updateData,
   onSubmit,
+  listData,
 }: ICertificationForm) => {
   const initValue = useRef<any>(null);
   const {
@@ -26,6 +28,7 @@ const CertificationForm = ({
     handleSubmit,
     reset,
     control,
+    setValue,
     formState: { errors },
   } = useForm();
 
@@ -38,60 +41,83 @@ const CertificationForm = ({
     reset({ ...initValue.current });
   }, [isOpen, updateData, reset]);
 
+  console.log(listData);
+
   return (
     <Drawer title="Form" size="sm" isOpen={isOpen} onClose={() => onClose()}>
       <form onSubmit={handleSubmit(onSubmit)} noValidate>
         <Input
-          label="নাম (ইংরেজি)"
-          placeholder="নাম (ইংরেজি) লিখুন"
-          registerProperty={{
-            ...register("name", {
-              required: "নাম (ইংরেজি) লিখুন",
-            }),
-          }}
-          // isPhone
+          label="মেনুর নাম"
+          placeholder="মেনুর নাম লিখুন"
+          registerProperty={register("name", {
+            required: "মেনুর নাম লিখুন",
+          })}
           isRequired
-          isError={!!errors?.name}
-          errorMessage={errors?.name?.message as string}
+          isError={!!errors.name}
+          errorMessage={errors.name?.message as string}
+        />
+
+        <Input
+          label="মেনুর টাইটেল"
+          placeholder="মেনুর টাইটেল লিখুন"
+          registerProperty={register("title", {})}
+        />
+
+        <Input
+          label="মেনুর ধরন"
+          placeholder="মেনুর ধরন লিখুন"
+          registerProperty={register("type", {})}
+        />
+
+        <Input
+          label="আইকন ক্লাস"
+          placeholder="icon class লিখুন (e.g. home)"
+          registerProperty={register("iconClass")}
+        />
+
+        <Input
+          label="পাথ"
+          placeholder="/dashboard এর মত লিখুন"
+          isRequired
+          registerProperty={register("path", {
+            required: "পাথ লিখুন",
+          })}
+          isError={!!errors.path}
+          errorMessage={errors.path?.message as string}
+        />
+
+        <Input
+          label="Collapse ID"
+          placeholder="collapse id লিখুন"
+          registerProperty={register("collapseId")}
+          isError={!!errors.collapseId}
+          errorMessage={errors.collapseId?.message as string}
+        />
+
+        <Input
+          label="Badge Count"
+          placeholder="badge (e.g. new)"
+          registerProperty={register("badgeCount")}
+          isError={!!errors.badgeCount}
+          errorMessage={errors.badgeCount?.message as string}
         />
 
         <Autocomplete
           filterProps={["nameBn", "nameEn"]}
-          options={[
-            { id: 1, name: "Tanvir" },
-            { id: 2, name: "Rabbani Vai" },
-          ]}
-          label="মডিউল"
-          placeholder="মডিউল বাছাই করুন"
+          options={listData || []}
+          label="প্যারেন্ট"
+          placeholder="প্যারেন্ট বাছাই করুন"
           getOptionLabel={(op) => op?.name}
           getOptionValue={(op) => op?.id}
-          name="department"
+          name="parentDto"
           noMargin
           control={control}
-          // onChange={(val) => setValue("module2Id", val?.id)}
-          isRequired="মডিউল বাছাই করুন"
-          isError={!!errors?.module2}
-          errorMessage={errors?.module2?.message as string}
+          onChange={(val) => setValue("parent", val?.id)}
+          // isRequired="প্যারেন্ট বাছাই করুন"
+          // isError={!!errors?.parent}
+          // errorMessage={errors?.parent?.message as string}
         />
 
-        <Autocomplete
-          filterProps={["nameBn", "nameEn"]}
-          options={[
-            { id: 1, nameBn: "Tanvir" },
-            { id: 2, nameBn: "Rabbani Vai" },
-          ]}
-          label="মডিউল"
-          placeholder="মডিউল বাছাই করুন"
-          getOptionLabel={(op) => op?.nameBn}
-          getOptionValue={(op) => op?.id}
-          name="module"
-          noMargin
-          control={control}
-          // onChange={(val) => setValue("moduleId", val?.id)}
-          isRequired="মডিউল বাছাই করুন"
-          isError={!!errors?.module}
-          errorMessage={errors?.module?.message as string}
-        />
         <div className="text-end mt-4">
           <Separator />
 

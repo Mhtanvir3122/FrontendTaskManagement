@@ -143,6 +143,7 @@ const Menu = () => {
           onClose={onDrawerClose}
           updateData={updateData}
           onSubmit={onSubmit}
+          listData={listData}
         />
       </Row>
     </Container>
