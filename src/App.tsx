@@ -21,7 +21,14 @@ const App: React.FC = () => {
     <ThemeProvider>
       <Suspense fallback={<Loader />}>
         <BrowserRouter>
-          <ToastContainer />
+          <ToastContainer
+            position="top-right"
+            style={{
+              zIndex: 2147483647,
+              top: "70px",
+              right: "10px",
+            }}
+          />
           <AppRoutes />
         </BrowserRouter>
       </Suspense>

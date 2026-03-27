@@ -15,9 +15,9 @@ import {
   useDebounce,
 } from "@/components/myComponent/interface/common.interface";
 
-import MenuForm from "./Form";
-import MenuTable from "./Table";
-import { MenuService } from "@/service/service";
+import RoleForm from "./Form";
+import RoleTable from "./Table";
+import { ReportService, RoleService } from "@/service/service";
 import { toast } from "react-toastify";
 
 const initMeta: IMeta = {
@@ -30,7 +30,7 @@ const initMeta: IMeta = {
     },
   ],
 };
-const Menu = () => {
+const Role = () => {
   const [isDrawerOpen, setIsDrawerOpen] = useState<boolean>(false);
   const [searchParams, setSearchParams] = useSearchParams();
   const [isOpenModal, setIsOpenModal] = useState<boolean>(false);
@@ -70,7 +70,7 @@ const Menu = () => {
   const onSubmit = (data) => {
     delete data.parentDto
         delete data.current
-const service  = isUpdate?MenuService?.menusUpdate:MenuService?.menusCreate
+const service  = isUpdate?RoleService?.RolesUpdate:RoleService?.RolesCreate
     console.log(data);
 service(data).then((res) => {
 getDataList()
@@ -91,22 +91,22 @@ getDataList()
 
   const getDataList = (reqMeta = null) => {
     const payload = {
-      meta: searchKey
-        ? reqMeta
-          ? { ...reqMeta }
-          : { ...respMeta, page: 0 }
-        : reqMeta || respMeta,
+      // meta: searchKey
+      //   ? reqMeta
+      //     ? { ...reqMeta }
+      //     : { ...respMeta, page: 0 }
+      //   : reqMeta || respMeta,
       body: {
-        searchKey: searchKey,
+        // searchKey: searchKey,
       },
     };
-    MenuService.menusGetList(payload).then((res) => {
+    ReportService.roleSearch({keyword:searchKey}).then((res) => {
       setListData(res?.data || []);
-      setRespMeta(
-        res?.data?.meta
-          ? { ...res?.data?.meta }
-          : { limit: respMeta?.limit, page: 0 }
-      );
+      // setRespMeta(
+      //   res?.data?.meta
+      //     ? { ...res?.data?.meta }
+      //     : { limit: respMeta?.limit, page: 0 }
+      // );
     });
     // .catch((err) => toast.error(err?.message))
   };
@@ -118,9 +118,9 @@ getDataList()
     <Container fluid>
       <Row>
         <Breadcrumbs
-          mainTitle="Menu"
+          mainTitle="Role"
           title="Form Elements"
-          path={["Menu"]}
+          path={["Role"]}
           Icon={Cardholder}
         />
         <div className="d-flex flex-column flex-md-row gap-3 align-items-stretch">
@@ -140,16 +140,16 @@ getDataList()
         </div>
 
         <div className="mt-2">
-          <MenuTable tableData={listData} handleUpdate={handleUpdate}>
+          <RoleTable tableData={listData} handleUpdate={handleUpdate}>
             <Pagination
               meta={respMeta}
               pageNeighbours={2}
               onPageChanged={onPageChanged}
             />{" "}
-          </MenuTable>
+          </RoleTable>
         </div>
 
-        <MenuForm
+        <RoleForm
           isOpen={isDrawerOpen}
           onClose={onDrawerClose}
           updateData={updateData}
@@ -160,4 +160,4 @@ getDataList()
     </Container>
   );
 };
-export default Menu;
+export default Role;

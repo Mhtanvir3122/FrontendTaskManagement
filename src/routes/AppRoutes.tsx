@@ -333,6 +333,9 @@ const Course = React.lazy(() => import("@/modules/SmartClassRoutine/course"));
 
 const Menu = React.lazy(() => import("@/modules/tms/menu"));
 
+const Role = React.lazy(() => import("@/modules/tms/role"));
+
+
 ///////////////////
 
 const routes = [
@@ -563,6 +566,8 @@ const routes = [
 
     { path: MY_PAGES_ROUTES.TEST_PAGE, component: <Tanvir /> },
         { path: MY_PAGES_ROUTES.MENU, component: <Menu /> },
+                { path: MY_PAGES_ROUTES.ROLE, component: <Role /> },
+
 
 
 

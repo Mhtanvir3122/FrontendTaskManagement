@@ -46,8 +46,28 @@ export const MenuService = {
 
     menusGetList: async (config?: any): Promise<any> =>
         await axios.get( "http://localhost:8080/AuthService/auth/menus"),
+
+    menusCreate: async (config?: any): Promise<any> =>
+        await axios.post( "http://localhost:8080/AuthService/auth/menus",config),
+      menusUpdate: async (config?: any): Promise<any> =>
+        await axios.put( "http://localhost:8080/AuthService/auth/menus/"+config?.id,config),
 }
 
+
+export const RoleService = { 
+
+
+    RolesGetList: async (config?: any): Promise<any> =>
+        await axios.get( "http://localhost:8080/AuthService/auth/roles"),
+
+    RolesCreate: async (config?: any): Promise<any> =>
+        await axios.post( "http://localhost:8080/AuthService/auth/roles",config),
+      RolesUpdate: async (config?: any): Promise<any> =>
+        await axios.put( "http://localhost:8080/AuthService/auth/roles/"+config?.id,config),
+
+       RoleSearch: async (payload:any): Promise<any> =>
+        await axios.post( "http://localhost:8080/AuthService/auth/roles/search", payload),
+}
 export const ReportService = {
     orgWiseAssetStatistics: async (payload:any): Promise<any> =>
       await axios.post( "http://localhost:8080/service1/employees/search", payload),

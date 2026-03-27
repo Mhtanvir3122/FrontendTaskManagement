@@ -22,7 +22,6 @@ const CertificationForm = ({
   onSubmit,
   listData,
 }: ICertificationForm) => {
-  const initValue = useRef<any>(null);
   const {
     register,
     handleSubmit,
@@ -31,17 +30,19 @@ const CertificationForm = ({
     setValue,
     formState: { errors },
   } = useForm();
-
+const defaultValues = {
+  name: "",
+  title: "",
+  type: "",
+  // তোমার form field অনুযায়ী দাও
+};
   useEffect(() => {
     if (isOpen && updateData) {
-      initValue.current = {
-        ...updateData,
-      };
-    } else initValue.current = {};
-    reset({ ...initValue.current });
+    reset({ ...updateData})   
+    } else{reset(defaultValues)};
   }, [isOpen, updateData, reset]);
 
-  console.log(listData);
+  console.log(updateData);
 
   return (
     <Drawer title="Form" size="sm" isOpen={isOpen} onClose={() => onClose()}>
@@ -112,7 +113,7 @@ const CertificationForm = ({
           name="parentDto"
           noMargin
           control={control}
-          onChange={(val) => setValue("parent", val?.id)}
+          onChange={(val) => setValue("parent", {id:val?.id})}
           // isRequired="প্যারেন্ট বাছাই করুন"
           // isError={!!errors?.parent}
           // errorMessage={errors?.parent?.message as string}
