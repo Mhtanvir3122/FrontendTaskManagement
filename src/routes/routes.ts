@@ -216,7 +216,9 @@ export const OTHER_PAGES_ROUTES = {
 export const MY_PAGES_ROUTES = {
   TEST_PAGE: "/tanvir/test",
   MENU:"/settings/menu",
-    ROLE:"/settings/roles"
+    ROLE:"/settings/roles",
+        ASSIGN_ROLE_EMPLOYEE:"/settings/assign-roles-employee"
+
 
 };
 

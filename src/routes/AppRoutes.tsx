@@ -335,6 +335,12 @@ const Menu = React.lazy(() => import("@/modules/tms/menu"));
 
 const Role = React.lazy(() => import("@/modules/tms/role"));
 
+const RoleAssignEmployee = React.lazy(() => import("@/modules/tms/rolesAssignEmployee"));
+
+
+
+
+
 
 ///////////////////
 
@@ -567,6 +573,9 @@ const routes = [
     { path: MY_PAGES_ROUTES.TEST_PAGE, component: <Tanvir /> },
         { path: MY_PAGES_ROUTES.MENU, component: <Menu /> },
                 { path: MY_PAGES_ROUTES.ROLE, component: <Role /> },
+
+                                { path: MY_PAGES_ROUTES.ASSIGN_ROLE_EMPLOYEE, component: <RoleAssignEmployee /> },
+
 
 
 
