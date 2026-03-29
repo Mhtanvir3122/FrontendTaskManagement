@@ -148,12 +148,7 @@ const onSubmit = (e: any) => {
               onChange={(e) => setSearch(e.target.value)}
             />
           </div>
-          <div className="mb-4">
-            <Button size="md" onClick={() => setIsDrawerOpen(true)}>
-              <Icon icon="add" />
-              &nbsp;যুক্ত করুন
-            </Button>
-          </div>
+        
         </div>
 
         <div className="mt-2">

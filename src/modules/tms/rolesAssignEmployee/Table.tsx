@@ -11,28 +11,29 @@ import { TableCell } from "@/components/myComponant/TableFor/TableCell";
 import { TableRow } from "@/components/myComponant/TableFor/TableRow";
 import { numEnToBn } from "@/components/myComponant/input/checkValidation";
 
-
 const columns: ITableHeadColumn[] = [
   { title: "", width: 20 },
 
   { title: "ক্রমিক নং", width: 100 },
-  { title: "রোলের নাম", width: 200 },
-  { title: "অ্যাকশন", minWidth: 20, className: "d-flex justify-content-center" },
+  { title: "রোলের নাম", width: 300 },
+  { title: "রোলের নাম", width: 400 },
+
+  { title: "রোলের নাম", width: 400 },
+
+  { title: "অ্যাকশন", minWidth: 20, className: "d-flex justify-content-end" },
 ];
 interface RoleTableProps {
   children?: ReactNode;
   tableData?: any[];
   title?: string;
   handleUpdate: (data) => void;
-    roleData?: any
-
+  roleData?: any;
 }
 const RoleTable: FC<RoleTableProps> = ({
   tableData,
   children,
   handleUpdate,
-  roleData
-  
+  roleData,
 }) => {
   if (!tableData?.length) return null;
 
@@ -44,20 +45,20 @@ const RoleTable: FC<RoleTableProps> = ({
       <Card.Body className="p-0">
         <Table columns={columns}>
           {tableData?.map((item: any, i: number) => (
-            <TableRow
-              key={item?.id || i}
-           
-            >
+            <TableRow key={item?.id || i}>
               <TableCell text={numEnToBn(i + 1)} />
 
               <TableCell text={item?.username || "তথ্য নেই "} />
-            
-              <TableCell text={item?.email || "তথ্য নেই "} />
-              <TableCell text={item?.roles?.map(e=>e?.name)?.join(',  ') || "তথ্য নেই "} />
 
+              <TableCell text={item?.email || "তথ্য নেই "} />
+              <TableCell
+                text={
+                  item?.roles?.map((e) => e?.name)?.join(",  ") || "তথ্য নেই "
+                }
+              />
 
               <TableCell className="p-0 m-0 ">
-                <div className="d-flex justify-content-center align-items-center">
+                <div className="d-flex justify-content-end mx-3">
                   <Dropdown
                     className="p-0 m-0"
                     btnContent={

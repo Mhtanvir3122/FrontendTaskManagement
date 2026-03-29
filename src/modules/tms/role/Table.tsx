@@ -17,7 +17,7 @@ const columns: ITableHeadColumn[] = [
 
   { title: "ক্রমিক নং", width: 100 },
   { title: "রোলের নাম", width: 200 },
-  { title: "অ্যাকশন", minWidth: 20, className: "d-flex justify-content-center" },
+  { title: "অ্যাকশন", minWidth: 20, className: "d-flex justify-content-end" },
 ];
 interface RoleTableProps {
   children?: ReactNode;
@@ -51,7 +51,7 @@ const RoleTable: FC<RoleTableProps> = ({
 
 
               <TableCell className="p-0 m-0 ">
-                <div className="d-flex justify-content-center align-items-center">
+                <div className="d-flex justify-content-end mx-3">
                   <Dropdown
                     className="p-0 m-0"
                     btnContent={
