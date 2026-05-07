@@ -1,7 +1,9 @@
 import { useEffect, useState } from "react";
 import { Container, Row } from "react-bootstrap";
 import { useSearchParams } from "react-router-dom";
+import { toast } from "react-toastify";
 
+import { MenuService } from "@/service/service";
 import { Cardholder } from "phosphor-react";
 
 import Breadcrumbs from "@/components/breadcrumb/Breadcrumb";
@@ -17,8 +19,6 @@ import {
 
 import MenuForm from "./Form";
 import MenuTable from "./Table";
-import { MenuService } from "@/service/service";
-import { toast } from "react-toastify";
 
 const initMeta: IMeta = {
   page: 0,
@@ -60,24 +60,38 @@ const Menu = () => {
     setIsDrawerOpen(true);
   };
 
+  const deleteUpdate = (data: any) => {
+    console.log(data?.id);
+     MenuService?.menusdelete(data?.id).then((res) => {
+      getDataList();
+      toast.success("lll");
+    });
+  };
+
   const onDrawerClose = () => {
     setIsDrawerOpen(false);
-    setUpdateData({})
-        setIsUpdate(false);
-
+    setUpdateData({});
+    setIsUpdate(false);
   };
 
   const onSubmit = (data) => {
-    delete data.parentDto
-        delete data.current
-const service  = isUpdate?MenuService?.menusUpdate:MenuService?.menusCreate
+    console.log(data.parentDto);
+
+data.parent =
+  !data.parentDto?.id
+    ? null
+    : { id: data.parentDto.id };    
+    delete data.parentDto;
+    delete data.current;
+    const service = isUpdate
+      ? MenuService?.menusUpdate
+      : MenuService?.menusCreate;
     console.log(data);
-service(data).then((res) => {
-getDataList()
-  onDrawerClose()
-  toast.success("lll")
-})
-    
+    service(data).then((res) => {
+      getDataList();
+      onDrawerClose();
+      toast.success("lll");
+    });
   };
 
   const onCancelModal = () => {
@@ -140,7 +154,11 @@ getDataList()
         </div>
 
         <div className="mt-2">
-          <MenuTable tableData={listData} handleUpdate={handleUpdate}>
+          <MenuTable
+            tableData={listData}
+            handleUpdate={handleUpdate}
+            deleteUpdate={deleteUpdate}
+          >
             <Pagination
               meta={respMeta}
               pageNeighbours={2}

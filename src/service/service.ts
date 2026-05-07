@@ -51,6 +51,10 @@ export const MenuService = {
         await axios.post( "http://localhost:8080/AuthService/auth/menus",config),
       menusUpdate: async (config?: any): Promise<any> =>
         await axios.put( "http://localhost:8080/AuthService/auth/menus/"+config?.id,config),
+
+
+         menusdelete: async (config?: any): Promise<any> =>
+        await axios.delete( "http://localhost:8080/AuthService/auth/menus/"+config),
 }
 
 

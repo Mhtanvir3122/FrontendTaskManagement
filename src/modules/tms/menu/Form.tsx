@@ -30,16 +30,24 @@ const CertificationForm = ({
     setValue,
     formState: { errors },
   } = useForm();
-const defaultValues = {
-  name: "",
-  title: "",
-  type: "",
-  // তোমার form field অনুযায়ী দাও
-};
+  const defaultValues = {
+    name: "",
+    title: "",
+    type: "",
+    iconClass: "",
+    path: "",
+    collapseId: "",
+    badgeCount: "",
+    parentDto: "",
+    parent: null,
+    // তোমার form field অনুযায়ী দাও
+  };
   useEffect(() => {
     if (isOpen && updateData) {
-    reset({ ...updateData})   
-    } else{reset(defaultValues)};
+      reset({ ...updateData });
+    } else {
+      reset(defaultValues);
+    }
   }, [isOpen, updateData, reset]);
 
   console.log(updateData);
@@ -113,7 +121,7 @@ const defaultValues = {
           name="parentDto"
           noMargin
           control={control}
-          onChange={(val) => setValue("parent", {id:val?.id})}
+          onChange={(val) => setValue("parent", { id: val?.id })}
           // isRequired="প্যারেন্ট বাছাই করুন"
           // isError={!!errors?.parent}
           // errorMessage={errors?.parent?.message as string}

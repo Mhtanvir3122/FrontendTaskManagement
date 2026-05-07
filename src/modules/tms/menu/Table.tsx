@@ -29,11 +29,13 @@ interface CourseTableProps {
   tableData?: any[];
   title?: string;
   handleUpdate: (data) => void;
+   deleteUpdate: (data) => void;
+
 }
 const CourseTable: FC<CourseTableProps> = ({
   tableData,
   children,
-  handleUpdate,
+  handleUpdate,deleteUpdate
 }) => {
   if (!tableData?.length) return null;
 
@@ -53,6 +55,7 @@ const CourseTable: FC<CourseTableProps> = ({
                     tableData={item}
                     handleUpdate={handleUpdate}
                     children={children}
+                    deleteUpdate={deleteUpdate}
                   />
                 ) : null
               }
@@ -88,6 +91,16 @@ const CourseTable: FC<CourseTableProps> = ({
                       <Icon size={16} icon="edit" color="info" />
                       <h6 className="mb-0 ms-2" style={{ fontSize: 16 }}>
                         সম্পাদনা করুন
+                      </h6>
+                    </DropdownItem>
+                      <DropdownItem
+                      onClick={() => {
+                        deleteUpdate(item);
+                      }}
+                    >
+                      <Icon size={16} icon="delete" color="danger" />
+                      <h6 className="mb-0 ms-2" style={{ fontSize: 16 }}>
+                       ডিলিট করুন 
                       </h6>
                     </DropdownItem>
                   </Dropdown>
